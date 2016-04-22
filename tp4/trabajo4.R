@@ -58,7 +58,7 @@ save(ErroresDeClasificacion, file='errorC.Rdata')
 #punto 12 y 13
 
 pdf("Grafica__Diagonal_Predicciones.pdf")
-plot(0:16,0.:16,type='n',main='Dataset Diagonal Test',xlab = 'x1',ylab = 'x2')
+plot(0:16,0.:16,type='n',main='Dataset Diagonal Predicciones',xlab = 'x1',ylab = 'x2')
 points(diagonal_test[predicciones==1,1],diagonal_test[predicciones==1,2], col='red')
 points(diagonal_test[predicciones==0,1],diagonal_test[predicciones==0,2], col='blue')
 dev.off()
