@@ -16,7 +16,7 @@ save(vertical,file = "Vertical.Rdata");
 # con “X1” y “X2”. Guardar la gráfica en formato PDF con el nombre “Grafica_Vertical.pdf”
 
 pdf("Grafica_Vertical.pdf")
-plot(0:16,0.:16, type='n',main='Dataset Vertical',xlab = 'x1',ylab = 'x2')
+plot(-2:16,-2:16, type='n',main='Dataset Vertical',xlab = 'x1',ylab = 'x2')
 points(vertical[1:500,1],vertical[1:500,2], col='red')
 points(vertical[501:1000,1],vertical[501:1000,2], col='blue')
 dev.off()
@@ -40,8 +40,8 @@ for(i in 1:30){
 modelos<-list()
 predicciones<-list()
 for(i in 1:30){
-  modelos[[i]] <- svm(vertical_train[[i]][,-3],vertical_train[[i]][,3], type="C");
-  predicciones <- predict(modelos[[i]],vertical_test[[i]][,-3]);
+  modelos[[i]] <- svm(vertical_train[[i]][,-3],vertical_train[[i]][,3], type = "C",kernel = "radial");
+  predicciones[[i]] <- predict(modelos[[i]],vertical_test[[i]][,-3]);
 }
 # 5. Calcular el error de Clasificación de cada corrida. (1,0)
 
@@ -56,6 +56,19 @@ for(i in 1:30){
 save(predicciones,file = "predicciones.Rdata");
 save(errorC,file = "errorC.Rdata");
 # 7. Calcular el error medio de clasificación de las corridas y escriba sus conclusiones.
-# ¿Podrías afirmar que el error medio obtenido es estadísticamente representativo? Justifique.
-# ¿Que podrías hacer para mejorar el rendimiento del clasificador?
 ErrorDeClasificacion<-mean(errorC)
+# ¿Podrías afirmar que el error medio obtenido es estadísticamente representativo? Justifique.
+# Si. Por que los datos de entrenamiento y testeo son muestras representativas del dataset (balanceado)
+ 
+# ¿Que podrías hacer para mejorar el rendimiento del clasificador?
+# si bien mucho depende de la semilla del con la que se realizo el sampleo, se ha identificado que con un kernel radial se mejoro el rendimiento. 
+# estos calculos fueron realizadon con en mismo sampleo en los dataset de vertical_train y vertical_test
+
+# Error con kernel liner= 0.16033  
+# Error con kernel polynomial= 0.175222
+# Error con kernel radial basis = 0.12144444  <== Mejor rendimiento
+# Error con kernel sigmoid = 0.2327777
+
+# pero para lograr una mejora considereable se deberia trabajar sobre los datos de los dataset. Tratando de eliminar 
+# ruidos, aumentando la cantidad de datos correctos. Pero bueno dado que es un dataset de "juguete" esto no es muy viable dado
+# que no tenemos en concreto datos del contexto del problema.
