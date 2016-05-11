@@ -88,4 +88,8 @@ dev.off()
 ###Se puede apreciar que para el conjunto de prueba la red se quivoco en 7 valores.
 ###Predijo correctamente los valores de la clase 1, no asi los de la clase 0
 ###Tambien se puede observar que el predictor agrupo las clases de manera que sean
-###linealmente separables
+###linealmente separables.
+###En si nuestro error de clasificación no es muy bueno. Para cambiar esto debemos
+###mejorar nuestra red cambiando valores en los parametros libres, por ej. podriamos
+###cambiar el valor de la semilla, añadir mas capas ocultas, modificar el learning 
+###rate, establecer un tstep max,etc.
